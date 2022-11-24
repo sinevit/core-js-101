@@ -102,7 +102,6 @@ function chainPromises(/* array, action */) {
   //   el.then((v) => res.push(v));
   //   el.catch((error) => new Error(error));
   // });
-
 }
 
 module.exports = {
