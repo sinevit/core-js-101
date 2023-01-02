@@ -202,18 +202,11 @@ function isInsideCircle(circle, point) {
  *   'abracadabra'  => 'c'
  *   'entente' => null
  */
-function findFirstSingleChar() {
-  throw new Error('Not implemented');
-  // const newarr = str.split('');
-  // for (let i = 0; i < newarr.length; i += 1) {
-  //   const listIdx = [];
-  //   console.log(newarr[i], i + 1, str.indexOf(newarr[i], i + 1));
-  //   // while ((str.indexOf(newarr[i], i + 1)) !== -1) {
-  //   //   listIdx.push(i);
-  //   // }
-  //   if (listIdx.length === 1) return newarr[i];
-  // }
-  // return null;
+function findFirstSingleChar(str) {
+  const newarr = str.split('');
+
+  const result = newarr.filter((el) => newarr.indexOf(el) === newarr.lastIndexOf(el));
+  return result[0] || null;
 }
 
 
@@ -359,15 +352,31 @@ function getDigitalRoot(num) {
  *   '{)' = false
  *   '{[(<{[]}>)]}' = true
  */
-function isBracketsBalanced() {
-  throw new Error('Not implemented');
-  // if (str.length % 2 !== 0) return false;
-  // const brackets = '[]{}()<>';
-  // let count = 0;
-  // const stack = [];
-  // for (let i = 0; i < str.length; i += 1) {
-  // }
-  // return stack.length === 0;
+function isBracketsBalanced(str) {
+  if (str.length % 2 !== 0) return false;
+  const openBrackets = ['[', '{', '<', '('];
+  const bracetsPair = {
+    ')': '(',
+    '}': '{',
+    ']': '[',
+    '>': '<',
+  };
+  const stack = [];
+  for (let i = 0; i < str.length; i += 1) {
+    const current = str[i];
+    if (openBrackets.includes(current)) {
+      stack.push(current);
+    } else {
+      if (stack.length === 0) return false;
+      const topElem = stack[stack.length - 1];
+      if (bracetsPair[[current]] === topElem) {
+        stack.pop();
+      } else {
+        return false;
+      }
+    }
+  }
+  return stack.length === 0;
 }
 
 /**
@@ -481,8 +490,18 @@ function getMatrixProduct(m1, m2) {
  *    [    ,   ,    ]]
  *
  */
-function evaluateTicTacToePosition(/* position */) {
-  throw new Error('Not implemented');
+function evaluateTicTacToePosition(position) {
+  if (position[0][0] && position[0][0] === position[0][1] && position[0][0] === position[0][2]) {
+    return position[0][0];
+  }
+  if (position[1][0] === position[1][1] && position[1][0] === position[1][2]) return position[1][0];
+  if (position[2][0] === position[2][1] && position[2][0] === position[2][2]) return position[2][0];
+  if (position[0][0] === position[1][1] && position[0][0] === position[2][2]) return position[0][0];
+  if (position[0][2] === position[1][1] && position[0][2] === position[2][0]) return position[0][2];
+  if (position[0][0] === position[1][0] && position[0][0] === position[2][0]) return position[0][0];
+  if (position[0][1] === position[1][1] && position[0][1] === position[2][1]) return position[0][1];
+  if (position[0][2] === position[1][2] && position[0][2] === position[2][2]) return position[0][2];
+  return undefined;
 }
 
 

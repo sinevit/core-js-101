@@ -95,13 +95,16 @@ function getFastestPromise(array) {
  *    });
  *
  */
-function chainPromises(/* array, action */) {
-  throw new Error('Not implemented');
-  // const res = [];
-  // array.map((el) => {
-  //   el.then((v) => res.push(v));
-  //   el.catch((error) => new Error(error));
-  // });
+function chainPromises(array, action) {
+  const result = [];
+  return new Promise((resolve) => {
+    array.forEach((el) => {
+      el
+        .then((data) => result.push(data))
+        .catch((error) => new Error(error));
+    });
+    resolve(result);
+  }).then(() => result.reduce(action));
 }
 
 module.exports = {
